@@ -1,0 +1,123 @@
+/* Footer: black, carries on from the "Join Atlas" band */
+.down_introduction {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 40px;
+    padding: 60px 24px;
+    background: #0A0A0A;
+    border-top: 15px solid #FFFFFF;
+    color: #FFFFFF;
+    font-family: Archivo, sans-serif;
+}
+
+/* Seal + name */
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.footer-logo img {
+    display: block;
+    width: 120px;
+    height: 120px;
+}
+.brand-name {
+    margin: 0;
+    font-size: 35px;
+    font-weight: 800;
+    letter-spacing: 0.3em;
+}
+.brand-sub {
+    margin: 8px 0 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #7A6420;
+}
+
+/* Page links, stacked */
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.button1 {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: capitalize;
+    text-decoration: none;
+    color: #FFFFFF;
+}
+.button1:hover {
+    color: #7A6420;
+}
+
+/* Email + address */
+.footer-contact p,
+.footer-contact a {
+    margin: 0 0 8px;
+    display: block;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+.footer-contact .footer-contact-title {
+    margin-bottom: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    color: #FFFFFF;
+}
+.footer-contact a:hover {
+    color: #7A6420;
+}
+
+/* Bottom strip: line + name and social links */
+.line {
+    padding: 0 24px 24px;
+    background: #0A0A0A;
+}
+.line hr {
+    margin: 0 0 20px;
+    border: 0;
+    border-top: 1px solid #3A3A3A;
+}
+.copyright-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+.copyright {
+    margin: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+/* Name on the left, social links pushed to the right */
+.copyright-row p.copyright {
+    margin-right: auto;
+}
+a.copyright:hover {
+    color: #7A6420;
+}
+/* Instagram / Facebook icons next to the link text */
+a.copyright {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.social-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
