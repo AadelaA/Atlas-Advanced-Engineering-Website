@@ -10,7 +10,6 @@ body {
     background: #FFFFFF;
 }
 
-/* Map on top, thin grey frame */
 .contact-map {
     max-width: 840px;
     margin: 30px auto 0;
@@ -24,7 +23,6 @@ body {
     border: 0;
 }
 
-/* Black card with a gold offset shadow */
 .Contact_div {
     box-sizing: border-box;
     max-width: 640px;
@@ -97,7 +95,6 @@ a.contact-info-item:hover {
     overflow-wrap: anywhere;
 }
 
-/* Phones: less padding inside the card */
 @media (max-width: 600px) {
     .Contact_div {
         padding: 40px 20px;

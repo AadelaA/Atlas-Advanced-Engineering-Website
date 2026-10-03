@@ -1,4 +1,3 @@
-/* Footer: black, carries on from the "Join Atlas" band */
 .down_introduction {
     display: flex;
     justify-content: space-between;
@@ -12,7 +11,6 @@
     font-family: Archivo, sans-serif;
 }
 
-/* Seal + name */
 .footer-logo {
     display: flex;
     align-items: center;
@@ -38,7 +36,6 @@
     color: #7A6420;
 }
 
-/* Page links, stacked */
 .nav-links {
     display: flex;
     flex-direction: column;
@@ -56,7 +53,6 @@
     color: #7A6420;
 }
 
-/* Email + address */
 .footer-contact p,
 .footer-contact a {
     margin: 0 0 8px;
@@ -78,7 +74,6 @@
     color: #7A6420;
 }
 
-/* Bottom strip: line + name and social links */
 .line {
     padding: 0 24px 24px;
     background: #0A0A0A;
@@ -103,14 +98,12 @@
     color: #FFFFFF;
     text-decoration: none;
 }
-/* Name on the left, social links pushed to the right */
 .copyright-row p.copyright {
     margin-right: auto;
 }
 a.copyright:hover {
     color: #7A6420;
 }
-/* Instagram / Facebook icons next to the link text */
 a.copyright {
     display: inline-flex;
     align-items: center;
