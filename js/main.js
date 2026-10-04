@@ -11,19 +11,26 @@ fetch("footer.html")
     });
 
 const projects=[
-    { photo: "../db/assets/PHONE.jpeg",alt: "Project1", tag:"Project1", title: "Project 1 ", description: "description" },
-    { photo: "../db/assets/noimage.jpg",alt: "Project2", tag:"Project2", title: "Project 2 ", description: "description" },
-    { photo: "../db/assets/noimage.jpg",alt: "Project3", tag:"Project3", title: "Project 3 ", description: "description" },
-    { photo: "../db/assets/noimage.jpg",alt: "Project4", tag:"Project4", title: "Project 4 ", description: "description" },
-    { photo: "../db/assets/noimage.jpg",alt: "Project5", tag:"Project5", title: "Project 5 ", description: "description" },
+    { photo: "../db/assets/noimage.jpg",alt: "[Project Icarus]", video:"../db/assets/videos/drone.mp4", tag:"AAV-Autonomous Aerial Vehicle", title: 'Project "Icarus" ', description: "[Autonomuos Drone]" },
+    { photo: "../db/assets/noimage.jpg",alt: "[Project Talos]", video:"../db/assets/videos/robot.mp4", tag:"UGV-Unmanned Groud Vehicle", title: 'Project "Talos" ', description: "[Unmanned Groud Vehicle]" },
+    { photo: "../db/assets/noimage.jpg",alt: "[Project Promachos]", video:"../db/assets/videos/Controlbox.mp4", tag:"GCS-Ground Control Station", title: 'Project "Promachos" ', description: "[Ground Control Station]" },
+    { photo: "../db/assets/noimage.jpg",alt: "[Prometheus Protocol]", video:"../db/assets/videos/BoudingBox.mp4", tag:"Object Recognition", title: '"Prometheus" Protocol ', description: "[Object Recognition]" },
+    { photo: "../db/assets/noimage.jpg",alt: "[Phalanx Protocol]", video:"../db/assets/videos/Encryption.mp4", tag:"Encryption System", title: '"Phalanx" Protocol', description: "[Encryption System]" },
+    { photo: "../db/assets/noimage.jpg",alt: "[Athena Protocol]", video:"../db/assets/videos/Athena_Protocol.mp4", tag:"Commanding Control System", title: '"Athena" Protocol ', description: "[Commanding Control System]" },
+    
 
     
 ]
 
-function renderCard(project) {
+function renderCard(project, index) {
+  const isBig = index === 0 || index === 5;
+  const media = project.video
+    ? `<video class="project-photo project-video" src="${project.video}#t=0.001"
+         muted loop playsinline preload="metadata" aria-label="${project.alt}"></video>`
+    : `<img class="project-photo" src="${project.photo}" alt="${project.alt}">`;
   return `
-    <article class="project-card">
-      <img class="project-photo" src="${project.photo}" alt="${project.alt}">
+    <article class="project-card${isBig ? " project-card-big" : ""}">
+      ${media}
       <p class="project-tag">${project.tag}</p>
       <p class="project-title">${project.title}</p>
       <p class="project-description">${project.description}</p>
@@ -34,20 +41,65 @@ function renderCard(project) {
 const projectList = document.querySelector(".our_projects");
 if (projectList) {
   projectList.innerHTML = projects.map(renderCard).join("");
+
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    // Cards entering together form a visual row; stagger them left to right.
+    entries
+      .filter(entry => entry.isIntersecting)
+      .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top || a.boundingClientRect.left - b.boundingClientRect.left)
+      .forEach((entry, order) => {
+        entry.target.style.transitionDelay = `${order * 0.25}s`;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+  }, { threshold: 0.15 });
+
+  projectList.querySelectorAll(".project-card").forEach(card => {
+    card.classList.add("reveal-left");
+    revealObserver.observe(card);
+  });
 }
 
+const projectHeading = document.querySelector(".project_text");
+if (projectHeading) {
+  const text = projectHeading.textContent.trim();
+  projectHeading.setAttribute("aria-label", text);
+  projectHeading.innerHTML = [...text]
+    .map((char, i) => `<span class="letter" style="--i:${i}" aria-hidden="true">${char}</span>`)
+    .join("");
+
+  const headingObserver = new IntersectionObserver((entries, observer) => {
+    if (entries[0].isIntersecting) {
+      projectHeading.classList.add("is-visible");
+      observer.disconnect();
+    }
+  }, { threshold: 0.5 });
+  headingObserver.observe(projectHeading);
+}
+
+document.querySelectorAll(".project-video").forEach(video => {
+  video.addEventListener("mouseenter", () => {
+    video.play().catch(() => {}); 
+  });
+  video.addEventListener("mouseleave", () => {
+    video.pause();
+    video.currentTime = 0;
+  });
+});
+
 const avaible_roles=[
-    { role: "Mechanical Engineer", tag: "Mechanical", title: "Mechanical Engineer", description: "Design and build the frames, mounts and moving parts of our projects.", number: 5 },
-    { role: "Electrical Engineer", tag: "Electrical", title: "Electrical Engineer", description: "Design circuits, wiring and power systems that bring the hardware to life.", number: 4 },
-    { role: "Software Developer", tag: "Software", title: "Software Developer", description: "Write the code that controls our machines, from embedded firmware to apps.", number: 6 },
-    { role: "Embedded Engineer", tag: "Embedded", title: "Embedded Engineer", description: "Program microcontrollers and connect sensors so every part talks to each other.", number: 3 },
-    { role: "Designer", tag: "Design", title: "Designer", description: "Shape how our projects look and feel, from 3D models to our visual identity.", number: 2 },
-    { role: "Project Manager", tag: "Management", title: "Project Manager", description: "Keep the team on track, plan milestones and make sure we ship on time.", number: 2 },
+    { position:"01", role: "Mechanical Engineer", tag: "Mechanical", title: "Mechanical Engineer", description: "Design and build the frames, mounts and moving parts of our projects.", number: 5 },
+    { position:"02", role: "Electrical Engineer", tag: "Electrical", title: "Electrical Engineer", description: "Design circuits, wiring and power systems that bring the hardware to life.", number: 4 },
+    { position:"03", role: "Software Developer", tag: "Software", title: "Software Developer", description: "Write the code that controls our machines, from embedded firmware to apps.", number: 6 },
+    { position:"04", role: "Embedded Engineer", tag: "Embedded", title: "Embedded Engineer", description: "Program microcontrollers and connect sensors so every part talks to each other.", number: 3 },
+    { position:"05" ,role: "Designer", tag: "Design", title: "Designer", description: "Shape how our projects look and feel, from 3D models to our visual identity.", number: 2 },
+    { position:"06", role: "Project Manager", tag: "Management", title: "Project Manager", description: "Keep the team on track, plan milestones and make sure we ship on time.", number: 2 },
 ]
 
 function renderRoleRow(role) {
   return `
     <tr>
+    <td class="role-position">${role.position}</td>
       <td class="role-name">${role.title}</td>
       <td class="role-description">${role.description}</td>
       <td class="role-number">${role.number}</td>
@@ -97,44 +149,41 @@ if (missionText) {
 }
 
 const team = [
-  { photo: "../db/assets/people/noprofile.jpg", tag: "Management", alt: "President", title: "President", name: "Name here" },
-  { photo: "../db/assets/people/noprofile.jpg", tag: "Management", alt: "Vice President", title: "Vice President", name: "Name here" },
-  { photo: "../db/assets/people/noprofile.jpg", tag: "Electronics Department", alt: "Chief Electronics Engineer", title: "Chief Electronics Engineer", name: "Name here" },
-  { photo: "../db/assets/people/noprofile.jpg", tag: "Software Department", alt: "Chief Software Engineer", title: "Chief Software Engineer", name: "Name here" },
-  { photo: "../db/assets/people/noprofile.jpg", tag: "Mechanical Department", alt: "Chief Mechanical Engineer", title: "Chief Mechanical Engineer", name: "Name here" },
-  // { photo: "../db/assets/people/noprofile.jpg", alt: "Head of Ethics & Safety Committee", title: "Head of Ethics & Safety Committee", name: "Name here" },
-  { photo: "../db/assets/people/noprofile.jpg", tag: "Communication Department", alt: "Head of Communications & Outreach", title: "Head of Communications & Outreach", name: "Name here" },
-  // { photo: "../db/assets/people/noprofile.jpg", alt: "Research Department Chief Scientist", title: "Research Department Chief Scientist", name: "Name here" },
-  // { photo: "../db/assets/people/noprofile.jpg", alt: "Treasurer", title: "Treasurer", name: "Name here" },
-  { photo: "../db/assets/people/noprofile.jpg", tag: "Electronics Department", alt: "Electronics Engineer", title: "Electronics Engineer <br> Mechanical Engineer", name: "Name here" },
-  { photo: "../db/assets/people/noprofile.jpg", tag: "Software Department", alt: "Software Engineer", title: "Software Engineer", name: "Name here" },
-  { photo: "../db/assets/people/noprofile.jpg", tag: "Mechanical Department", alt: "Mechanical Engineer", title: "Mechanical Engineer", name: "Name here" },
-  { photo: "../db/assets/people/noprofile.jpg", tag: "Software Department", alt: "Software Engineer", title: "Software Engineer", name: "Name here" },
-  // { photo: "../db/assets/people/noprofile.jpg", alt: "Mechanical Engineer", title: "Mechanical Engineer", name: "Name here" },
-  // { photo: "../db/assets/people/noprofile.jpg", alt: "Ethics & Safety Committee Officer", title: "Ethics & Safety Committee Officer", name: "Name here" },
-  // { photo: "../db/assets/people/noprofile.jpg", alt: "Communications & Outreach Officer", title: "Communications & Outreach Officer", name: "Name here" },
-  // { photo: "../db/assets/people/noprofile.jpg", alt: "Research Scientist", title: "Research Scientist", name: "Name here" },
+  { group: "Management", number: "", role: "President", name: "[Name]" },
+  { group: "Management", number: "", role: "Vice President", name: "[Name]" },
+  { group: "Icarus", number: "01", role: "[Role]", name: "[Name]" },
+  { group: "Icarus", number: "01", role: "[Role]", name: "[Name]" },
+  { group: "Talos", number: "02", role: "[Role]", name: "[Name]" },
+  { group: "Talos", number: "02", role: "[Role]", name: "[Name]" },
+  { group: "Promachos", number: "03", role: "[Role]", name: "[Name]" },
+  { group: "Promachos", number: "03", role: "[Role]", name: "[Name]" },
+  { group: "Prometheus", number: "04", role: "[Role]", name: "[Name]" },
+  { group: "Prometheus", number: "04", role: "[Role]", name: "[Name]" },
+  { group: "Athena", number: "05", role: "[Role]", name: "[Name]" },
+  { group: "Athena", number: "05", role: "[Role]", name: "[Name]" },
+  { group: "Phalanx", number: "06", role: "[Role]", name: "[Name]" },
+  { group: "Phalanx", number: "06", role: "[Role]", name: "[Name]" },
+  { group: "Communication", number: "", role: "Social Media", name: "[Name]" },
 ];
 
 function renderPersonCard(person) {
+  const photo = person.photo || "../db/assets/people/noprofile.jpg";
+  const tag = person.number ? `${person.number} ${person.group}` : person.group;
   return `
-    <div class="person-card">
-      <img class="person-photo" src="${person.photo}" alt="${person.alt}">
-      <p class="person-title">${person.title}</p>
-      <p class="person-name">${person.name}</p>
-    </div>
+    <article class="person-card">
+      <div class="person-photo-wrap">
+        <img class="person-photo" src="${photo}" alt="${person.name}, ${person.role}">
+        <span class="person-tag">${tag}</span>
+      </div>
+      <div class="person-info">
+        <p class="person-name">${person.name}</p>
+        <p class="person-role">${person.role}</p>
+      </div>
+    </article>
   `;
 }
 
 const teamGrid = document.querySelector(".team-grid");
 if (teamGrid) {
-  const departments = [...new Set(team.map(person => person.tag))];
-  teamGrid.innerHTML = departments.map(dept => `
-    <div class="dept-section">
-      <h2 class="dept-title">${dept}</h2>
-      <div class="dept-cards">
-        ${team.filter(person => person.tag === dept).map(renderPersonCard).join("")}
-      </div>
-    </div>
-  `).join("");
+  teamGrid.innerHTML = team.map(renderPersonCard).join("");
 }
