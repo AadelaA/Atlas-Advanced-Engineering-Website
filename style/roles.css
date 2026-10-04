@@ -12,6 +12,7 @@ body {
     letter-spacing: -0.02em;
     text-transform: uppercase;
     color: #FFFFFF;
+    text-align: center;
 }
 .team-title .thin {
     color: transparent;
