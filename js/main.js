@@ -114,7 +114,7 @@ if (rolesList) {
 const missionText = document.querySelector(".mission_text");
 if (missionText) {
   const fullText = missionText.textContent;
-  const TYPE_SPEED = 45;
+  const TYPE_SPEED = 20;
 
   missionText.innerHTML =
     '<span class="visually-hidden"></span>' +
