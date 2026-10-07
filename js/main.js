@@ -11,12 +11,12 @@ fetch("footer.html")
     });
 
 const projects=[
-    { photo: "../db/assets/noimage.jpg",alt: "[Project Icarus]", video:"../db/assets/videos/drone.mp4", tag:"AAV-Autonomous Aerial Vehicle", title: 'Project "Icarus" ', description: "[Autonomuos Drone]" },
-    { photo: "../db/assets/noimage.jpg",alt: "[Project Talos]", video:"../db/assets/videos/robot.mp4", tag:"UGV-Unmanned Groud Vehicle", title: 'Project "Talos" ', description: "[Unmanned Groud Vehicle]" },
-    { photo: "../db/assets/noimage.jpg",alt: "[Project Promachos]", video:"../db/assets/videos/Controlbox.mp4", tag:"GCS-Ground Control Station", title: 'Project "Promachos" ', description: "[Ground Control Station]" },
-    { photo: "../db/assets/noimage.jpg",alt: "[Prometheus Protocol]", video:"../db/assets/videos/BoudingBox.mp4", tag:"Object Recognition", title: '"Prometheus" Protocol ', description: "[Object Recognition]" },
-    { photo: "../db/assets/noimage.jpg",alt: "[Phalanx Protocol]", video:"../db/assets/videos/Encryption.mp4", tag:"Encryption System", title: '"Phalanx" Protocol', description: "[Encryption System]" },
-    { photo: "../db/assets/noimage.jpg",alt: "[Athena Protocol]", video:"../db/assets/videos/Athena_Protocol.mp4", tag:"Commanding Control System", title: '"Athena" Protocol ', description: "[Commanding Control System]" },
+    { video:"../db/assets/videos/drone.mp4", tag:"AAV-Autonomous Aerial Vehicle", tag_up:"Air", title: 'Project "Icarus" ', description: "[Autonomuos Drone]" },
+    { video:"../db/assets/videos/robot.mp4", tag:"UGV-Unmanned Groud Vehicle", tag_up:"Ground", title: 'Project "Talos" ', description: "[Unmanned Groud Vehicle]" },
+    { video:"../db/assets/videos/Controlbox.mp4", tag:"GCS-Ground Control Station",tag_up:"Control", title: 'Project "Promachos" ', description: "[Ground Control Station]" },
+    { video:"../db/assets/videos/BoudingBox.mp4", tag:"Object Recognition",tag_up:"AI", title: '"Prometheus" Protocol ', description: "[Object Recognition]" },
+    { video:"../db/assets/videos/Encryption.mp4", tag:"Encryption System",tag_up:"Security", title: '"Phalanx" Protocol', description: "[Encryption System]" },
+    { video:"../db/assets/videos/Athena_Protocol.mp4", tag:"Commanding Control System",tag_up:"Command", title: '"Athena" Protocol ', description: "[Commanding Control System]" },
     
 
     
@@ -32,6 +32,7 @@ function renderCard(project, index) {
     <article class="project-card${isBig ? " project-card-big" : ""}">
       ${media}
       <p class="project-tag">${project.tag}</p>
+      <p class="project-tag_up">${project.tag_up}</p>
       <p class="project-title">${project.title}</p>
       <p class="project-description">${project.description}</p>
     </article>
@@ -43,7 +44,6 @@ if (projectList) {
   projectList.innerHTML = projects.map(renderCard).join("");
 
   const revealObserver = new IntersectionObserver((entries, observer) => {
-    // Cards entering together form a visual row; stagger them left to right.
     entries
       .filter(entry => entry.isIntersecting)
       .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top || a.boundingClientRect.left - b.boundingClientRect.left)
@@ -58,6 +58,15 @@ if (projectList) {
     card.classList.add("reveal-left");
     revealObserver.observe(card);
   });
+}
+
+const tickerTrack = document.querySelector(".ticker-track");
+if (tickerTrack) {
+  const names = projects.map(project => project.title.replace(/"/g, "").trim());
+  // Repeat the list so the row fills even very wide screens; overflow is cut off.
+  tickerTrack.innerHTML = Array(4).fill(names).flat()
+    .map(name => `<span class="ticker-item">${name}</span>`)
+    .join("");
 }
 
 const projectHeading = document.querySelector(".project_text");
@@ -88,12 +97,12 @@ document.querySelectorAll(".project-video").forEach(video => {
 });
 
 const avaible_roles=[
-    { position:"01", role: "Mechanical Engineer", tag: "Mechanical", title: "Mechanical Engineer", description: "Design and build the frames, mounts and moving parts of our projects.", number: 5 },
-    { position:"02", role: "Electrical Engineer", tag: "Electrical", title: "Electrical Engineer", description: "Design circuits, wiring and power systems that bring the hardware to life.", number: 4 },
-    { position:"03", role: "Software Developer", tag: "Software", title: "Software Developer", description: "Write the code that controls our machines, from embedded firmware to apps.", number: 6 },
-    { position:"04", role: "Embedded Engineer", tag: "Embedded", title: "Embedded Engineer", description: "Program microcontrollers and connect sensors so every part talks to each other.", number: 3 },
-    { position:"05" ,role: "Designer", tag: "Design", title: "Designer", description: "Shape how our projects look and feel, from 3D models to our visual identity.", number: 2 },
-    { position:"06", role: "Project Manager", tag: "Management", title: "Project Manager", description: "Keep the team on track, plan milestones and make sure we ship on time.", number: 2 },
+    { position:"01", role: "Project Icarus", tag: "Icarus", title: "Project Icarus", description: "Help build our autonomous drone: the airframe, flight controller, sensors and navigation software that let it fly a mission on its own.", number: 4 },
+    { position:"02", role: "Project Talos", tag: "Talos", title: "Project Talos", description: "Help build our unmanned ground vehicle: the chassis, drivetrain, motor control and the autonomy that lets it handle rough terrain.", number: 4 },
+    { position:"03", role: "Phalanx Protocol", tag: "Phalanx", title: "Phalanx Protocol", description: "Secure every link between our vehicles and the ground station by designing encrypted, tamper-proof communication that works in real time.", number: 2 },
+    { position:"04", role: "Athena Protocol", tag: "Athena", title: "Athena Protocol", description: "Build the command layer that ties it all together, coordinating multiple vehicles, sharing mission data and turning sensor input into decisions.", number: 2 },
+    { position:"05" ,role: "Social Media & Communications", tag: "Social Media & Communications", title: "Social Media & Communications", description: "Tell the ATLAS story: film our builds, run our social channels and turn the progress in the workshop into content people want to follow.", number: 2 },
+    { position:"06", role: "Finance & Outreach", tag: "Finance & Outreach", title: "Finance & Outreach", description: "Manage the team's budget, find sponsors and build relationships with companies that help fund and equip our projects.", number: 2 },
 ]
 
 function renderRoleRow(role) {
@@ -149,21 +158,19 @@ if (missionText) {
 }
 
 const team = [
-  { group: "Management", number: "", role: "President", name: "[Name]" },
-  { group: "Management", number: "", role: "Vice President", name: "[Name]" },
-  { group: "Icarus", number: "01", role: "[Role]", name: "[Name]" },
-  { group: "Icarus", number: "01", role: "[Role]", name: "[Name]" },
-  { group: "Talos", number: "02", role: "[Role]", name: "[Name]" },
-  { group: "Talos", number: "02", role: "[Role]", name: "[Name]" },
-  { group: "Promachos", number: "03", role: "[Role]", name: "[Name]" },
-  { group: "Promachos", number: "03", role: "[Role]", name: "[Name]" },
-  { group: "Prometheus", number: "04", role: "[Role]", name: "[Name]" },
-  { group: "Prometheus", number: "04", role: "[Role]", name: "[Name]" },
-  { group: "Athena", number: "05", role: "[Role]", name: "[Name]" },
-  { group: "Athena", number: "05", role: "[Role]", name: "[Name]" },
-  { group: "Phalanx", number: "06", role: "[Role]", name: "[Name]" },
-  { group: "Phalanx", number: "06", role: "[Role]", name: "[Name]" },
-  { group: "Communication", number: "", role: "Social Media", name: "[Name]" },
+  { group: "President<br>Project Co-Leader<br> Mechatronics Engineer", photo:"../db/assets/people/chpetrou.jpg",  role: "Promachos<br>Icarus<br>Talos", name: "Charalampos Petrou" },
+  { group: "Vice President<br>Project Co-Leader<br>Software Engineer", photo:"../db/assets/people/APastekova.jpg",   role: "Promachos<br>Prometheus ", name: "Adela Pašteková" },
+  { group: "Software Engineer", photo:"../db/assets/people/M.Savkina.jpeg",   role: "Promachos<br>Prometheus ", name: "Marija Savkina" },
+  { group: "Software Engineer", photo:"../db/assets/people/A.Zalanyi.png",   role: "Promachos<br>Prometheus ", name: "Alex Zalanyi" },
+  { group: "Project Co-Leader<br>Mechatronics Engineer", photo:"../db/assets/people/Mikolaj.jpeg",  role: "Talos", name: "Mikolaj Tyliszczak" },
+  { group: "Project Co-Leader<br>Mechatronics Engineer", photo:"../db/assets/people/ManuelAFernandez.jpeg",   role: "Talos", name: "Manuel Alonso Fernández" },
+  { group: "Project Co-Leader<br>Mechatronics Engineer", photo:"../db/assets/people/NMazur.jpeg",   role: "Icarus", name: "Natalia Mazur" },
+  { group: "Project Co-Leader<br>Mechatronics Engineer", photo:"../db/assets/people/JRuiz.jpeg",   role: "Icarus", name: "Juan Ruiz" },
+  { group: "Project Co-Leader<br>Mechatronics Engineer", photo:"../db/assets/people/Asharma.jpeg",   role: "Athena", name: "Aditya Raj Sharma" },
+  { group: "Project Co-Leader<br>Software Engineer", photo:"../db/assets/people/D.Coll.jpeg",   role: "Athena", name: "David Coll" },
+  { group: "Project Co-Leader<br>Mechatronics Engineer", photo:"../db/assets/people/noprofile.jpg",   role: "Phalanx", name: "Ilyas Meduri" },
+  { group: "Project Co-Leader<br>Software Engineer", photo:"../db/assets/people/diego.jpeg",   role: "Phalanx", name: "Diego Chamorro Segura" },
+  // { group: "Communication", photo:"../db/assets/people/noprofile.jpg",   role: "Social Media", name: "[Name]" },
 ];
 
 function renderPersonCard(person) {

@@ -122,3 +122,13 @@ a.copyright {
     height: 18px;
     flex-shrink: 0;
 }
+
+@media (max-width: 600px) {
+    .copyright-row {
+        gap: 16px 24px;
+    }
+    .copyright-row p.copyright {
+        flex-basis: 100%;
+        margin-right: 0;
+    }
+}

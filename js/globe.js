@@ -30,6 +30,11 @@
 
     var hw = canvas.parentElement.clientWidth, hh = canvas.parentElement.clientHeight;
     var cx = hw * POS_X, cy = hh * POS_Y, R = Math.min(hw, hh) * SIZE;
+    if (hw <= 700) {
+      // Phones: smaller globe tucked just under the header.
+      R = hw * 0.42;
+      cy = 64 + R * 1.2;
+    }
     var rot = t * SPEED, ct = Math.cos(TILT), st = Math.sin(TILT);
 
     function proj(lat, lon) {
@@ -38,10 +43,11 @@
       return [cx + x * R, cy - (y * ct - z * st) * R, y * st + z * ct];
     }
 
+    var frontPath = new Path2D(), backPath = new Path2D();
+
     function seg(a, b) {
-      var front = (a[2] + b[2]) / 2 > 0;
-      g.strokeStyle = 'rgba(' + COLOR + ',' + (front ? 0.6 : 0.16) + ')';
-      g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.stroke();
+      var path = (a[2] + b[2]) / 2 > 0 ? frontPath : backPath;
+      path.moveTo(a[0], a[1]); path.lineTo(b[0], b[1]);
     }
 
     var lat, lon, p, q;
@@ -56,29 +62,44 @@
       for (lon = 6; lon <= 360; lon += 6) { q = proj(lat * D, lon * D); seg(p, q); p = q; }
     }
 
+    g.strokeStyle = 'rgba(' + COLOR + ',0.16)';
+    g.stroke(backPath);
+    g.strokeStyle = 'rgba(' + COLOR + ',0.6)';
+    g.stroke(frontPath);
+
     g.strokeStyle = 'rgba(' + RING_COLOR + ',0.55)';
     g.lineWidth = RING_WIDTH;
     g.beginPath(); g.arc(cx, cy, R * 1.08, 0, Math.PI * 2); g.stroke();
+    g.beginPath();
     for (var i = 0; i < 120; i++) {
       var a = i * 3 * D - t * 0.05;
       var r1 = R * 1.1;
       var r2 = R * (i % 10 === 0 ? 1.17 : i % 5 === 0 ? 1.145 : 1.125);
-      g.beginPath();
       g.moveTo(cx + Math.cos(a) * r1, cy + Math.sin(a) * r1);
       g.lineTo(cx + Math.cos(a) * r2, cy + Math.sin(a) * r2);
-      g.stroke();
     }
+    g.stroke();
   }
+
+  var frame = 0;
 
   function tick(ms) {
     draw(ms / 1000);
-    requestAnimationFrame(tick);
+    frame = requestAnimationFrame(tick);
   }
 
   if (still) {
     draw(0);
     window.addEventListener('resize', function () { draw(0); });
   } else {
-    requestAnimationFrame(tick);
+    // Only animate while the hero is on screen.
+    new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) {
+        if (!frame) frame = requestAnimationFrame(tick);
+      } else {
+        cancelAnimationFrame(frame);
+        frame = 0;
+      }
+    }).observe(canvas.parentElement);
   }
 })();

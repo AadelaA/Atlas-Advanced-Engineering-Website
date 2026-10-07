@@ -60,3 +60,25 @@
     border: 2px solid #7A6420;
     background : #7A6420;
 }
+
+@media (max-width: 600px) {
+    .header {
+        padding: 14px 16px;
+        gap: 12px;
+    }
+    .header_text {
+        font-size: 22px;
+        letter-spacing: 0.2em;
+        margin-left: 0;
+    }
+    .header_button_div {
+        gap: 14px;
+    }
+    .header_button,
+    .Header_apply_button {
+        font-size: 16px;
+    }
+    .Header_apply_button {
+        padding: 6px 10px;
+    }
+}
