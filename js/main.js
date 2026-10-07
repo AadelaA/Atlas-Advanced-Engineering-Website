@@ -1,10 +1,10 @@
-fetch("header.html")
+fetch("/header.html", { cache: "no-cache" })
     .then(response => response.text())
     .then(data => {
         document.getElementById("header_div").innerHTML = data;
     });
 
-fetch("footer.html")
+fetch("/footer.html", { cache: "no-cache" })
     .then(response => response.text())
     .then(data => {
         document.getElementById("footer_div").innerHTML = data;
@@ -193,4 +193,40 @@ function renderPersonCard(person) {
 const teamGrid = document.querySelector(".team-grid");
 if (teamGrid) {
   teamGrid.innerHTML = team.map(renderPersonCard).join("");
+}
+
+// Clean URLs: show sduatlas.dk/projects instead of sduatlas.dk/index.html#projects
+const SECTION_PATHS = { projects: "/projects", positions: "/positions" };
+const isHomePage = document.getElementById("projects") && document.getElementById("positions");
+
+function scrollToSection(id, smooth) {
+  const section = document.getElementById(id);
+  if (section) section.scrollIntoView({ behavior: smooth ? "smooth" : "auto" });
+}
+
+if (isHomePage) {
+  const id = location.hash.slice(1);
+  if (SECTION_PATHS[id]) {
+    history.replaceState({ section: id }, "", SECTION_PATHS[id]);
+    window.addEventListener("load", () => scrollToSection(id, false));
+  } else if (location.pathname.endsWith(".html")) {
+    history.replaceState(null, "", "/");
+  }
+
+  document.addEventListener("click", (event) => {
+    const link = event.target.closest("a");
+    if (!link) return;
+    const id = Object.keys(SECTION_PATHS).find((key) => link.getAttribute("href") === SECTION_PATHS[key]);
+    if (!id) return;
+    event.preventDefault();
+    history.pushState({ section: id }, "", SECTION_PATHS[id]);
+    scrollToSection(id, true);
+  });
+
+  window.addEventListener("popstate", (event) => {
+    if (event.state && event.state.section) scrollToSection(event.state.section, true);
+    else window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+} else if (location.pathname.endsWith(".html")) {
+  history.replaceState(null, "", location.pathname.slice(0, -5) + location.hash);
 }
