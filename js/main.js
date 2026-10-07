@@ -11,12 +11,12 @@ fetch("footer.html")
     });
 
 const projects=[
-    { video:"../db/assets/videos/drone.mp4", tag:"AAV-Autonomous Aerial Vehicle", tag_up:"Air", title: 'Project "Icarus" ', description: "[Autonomuos Drone]" },
-    { video:"../db/assets/videos/robot.mp4", tag:"UGV-Unmanned Groud Vehicle", tag_up:"Ground", title: 'Project "Talos" ', description: "[Unmanned Groud Vehicle]" },
-    { video:"../db/assets/videos/Controlbox.mp4", tag:"GCS-Ground Control Station",tag_up:"Control", title: 'Project "Promachos" ', description: "[Ground Control Station]" },
-    { video:"../db/assets/videos/BoudingBox.mp4", tag:"Object Recognition",tag_up:"AI", title: '"Prometheus" Protocol ', description: "[Object Recognition]" },
-    { video:"../db/assets/videos/Encryption.mp4", tag:"Encryption System",tag_up:"Security", title: '"Phalanx" Protocol', description: "[Encryption System]" },
-    { video:"../db/assets/videos/Athena_Protocol.mp4", tag:"Commanding Control System",tag_up:"Command", title: '"Athena" Protocol ', description: "[Commanding Control System]" },
+    { video:"db/assets/videos/drone.mp4", tag:"AAV-Autonomous Aerial Vehicle", tag_up:"Air", title: 'Project "Icarus" ', description: "[Autonomuos Drone]" },
+    { video:"db/assets/videos/Robot.mp4", tag:"UGV-Unmanned Groud Vehicle", tag_up:"Ground", title: 'Project "Talos" ', description: "[Unmanned Groud Vehicle]" },
+    { video:"db/assets/videos/Controlbox.mp4", tag:"GCS-Ground Control Station",tag_up:"Control", title: 'Project "Promachos" ', description: "[Ground Control Station]" },
+    { video:"db/assets/videos/BoudingBox.mp4", tag:"Object Recognition",tag_up:"AI", title: '"Prometheus" Protocol ', description: "[Object Recognition]" },
+    { video:"db/assets/videos/Encryption.mp4", tag:"Encryption System",tag_up:"Security", title: '"Phalanx" Protocol', description: "[Encryption System]" },
+    { video:"db/assets/videos/Athena_Protocol.mp4", tag:"Commanding Control System",tag_up:"Command", title: '"Athena" Protocol ', description: "[Commanding Control System]" },
     
 
     
@@ -158,23 +158,23 @@ if (missionText) {
 }
 
 const team = [
-  { group: "President<br>Project Co-Leader<br> Mechatronics Engineer", photo:"../db/assets/people/chpetrou.jpg",  role: "Promachos<br>Icarus<br>Talos", name: "Charalampos Petrou" },
-  { group: "Vice President<br>Project Co-Leader<br>Software Engineer", photo:"../db/assets/people/APastekova.jpg",   role: "Promachos<br>Prometheus ", name: "Adela Pašteková" },
-  { group: "Software Engineer", photo:"../db/assets/people/M.Savkina.jpeg",   role: "Promachos<br>Prometheus ", name: "Marija Savkina" },
-  { group: "Software Engineer", photo:"../db/assets/people/A.Zalanyi.png",   role: "Promachos<br>Prometheus ", name: "Alex Zalanyi" },
-  { group: "Project Co-Leader<br>Mechatronics Engineer", photo:"../db/assets/people/Mikolaj.jpeg",  role: "Talos", name: "Mikolaj Tyliszczak" },
-  { group: "Project Co-Leader<br>Mechatronics Engineer", photo:"../db/assets/people/ManuelAFernandez.jpeg",   role: "Talos", name: "Manuel Alonso Fernández" },
-  { group: "Project Co-Leader<br>Mechatronics Engineer", photo:"../db/assets/people/NMazur.jpeg",   role: "Icarus", name: "Natalia Mazur" },
-  { group: "Project Co-Leader<br>Mechatronics Engineer", photo:"../db/assets/people/JRuiz.jpeg",   role: "Icarus", name: "Juan Ruiz" },
-  { group: "Project Co-Leader<br>Mechatronics Engineer", photo:"../db/assets/people/Asharma.jpeg",   role: "Athena", name: "Aditya Raj Sharma" },
-  { group: "Project Co-Leader<br>Software Engineer", photo:"../db/assets/people/D.Coll.jpeg",   role: "Athena", name: "David Coll" },
-  { group: "Project Co-Leader<br>Mechatronics Engineer", photo:"../db/assets/people/noprofile.jpg",   role: "Phalanx", name: "Ilyas Meduri" },
-  { group: "Project Co-Leader<br>Software Engineer", photo:"../db/assets/people/diego.jpeg",   role: "Phalanx", name: "Diego Chamorro Segura" },
-  // { group: "Communication", photo:"../db/assets/people/noprofile.jpg",   role: "Social Media", name: "[Name]" },
+  { group: "President<br>Project Co-Leader<br> Mechatronics Engineer", photo:"db/assets/people/chpetrou.jpg",  role: "Promachos<br>Icarus<br>Talos", name: "Charalampos Petrou" },
+  { group: "Vice President<br>Project Co-Leader<br>Software Engineer", photo:"db/assets/people/APastekova.jpg",   role: "Promachos<br>Prometheus ", name: "Adela Pašteková" },
+  { group: "Software Engineer", photo:"db/assets/people/M.Savkina.jpeg",   role: "Promachos<br>Prometheus ", name: "Marija Savkina" },
+  { group: "Software Engineer", photo:"db/assets/people/A.Zalanyi.png",   role: "Promachos<br>Prometheus ", name: "Alex Zalanyi" },
+  { group: "Project Co-Leader<br>Mechatronics Engineer", photo:"db/assets/people/Mikolaj.jpeg",  role: "Talos", name: "Mikolaj Tyliszczak" },
+  { group: "Project Co-Leader<br>Mechatronics Engineer", photo:"db/assets/people/ManuelAFernandez.jpeg",   role: "Talos", name: "Manuel Alonso Fernández" },
+  { group: "Project Co-Leader<br>Mechatronics Engineer", photo:"db/assets/people/NMazur.jpeg",   role: "Icarus", name: "Natalia Mazur" },
+  { group: "Project Co-Leader<br>Mechatronics Engineer", photo:"db/assets/people/JRuiz.jpeg",   role: "Icarus", name: "Juan Ruiz" },
+  { group: "Project Co-Leader<br>Mechatronics Engineer", photo:"db/assets/people/ASharma.jpeg",   role: "Athena", name: "Aditya Raj Sharma" },
+  { group: "Project Co-Leader<br>Software Engineer", photo:"db/assets/people/D.Coll.jpeg",   role: "Athena", name: "David Coll" },
+  { group: "Project Co-Leader<br>Mechatronics Engineer", photo:"db/assets/people/noprofile.jpg",   role: "Phalanx", name: "Ilyas Meduri" },
+  { group: "Project Co-Leader<br>Software Engineer", photo:"db/assets/people/Diego.jpeg",   role: "Phalanx", name: "Diego Chamorro Segura" },
+  // { group: "Communication", photo:"db/assets/people/noprofile.jpg",   role: "Social Media", name: "[Name]" },
 ];
 
 function renderPersonCard(person) {
-  const photo = person.photo || "../db/assets/people/noprofile.jpg";
+  const photo = person.photo || "db/assets/people/noprofile.jpg";
   const tag = person.number ? `${person.number} ${person.group}` : person.group;
   return `
     <article class="person-card">
