@@ -33,6 +33,7 @@
     if (hw <= 700) {
       // Phones: smaller globe tucked just under the header.
       R = hw * 0.42;
+      cx = hw * 0.6;
       cy = 64 + R * 1.2;
     }
     var rot = t * SPEED, ct = Math.cos(TILT), st = Math.sin(TILT);
